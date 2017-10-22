@@ -42,6 +42,6 @@ public interface PendudukMapper {
     @Update("SELECT count(*) FROM penduduk WHERE id_keluarga = #{id_keluarga} AND is_wafat = 0")
     int statusKel (@Param("id_keluarga") String id_keluarga);
     
-    @Select("select * from penduduk, kelurahan, keluarga where kecamatan.id_kelurahan = #{id}")
+    @Select("select * from penduduk, kelurahan, keluarga where penduduk.id_keluarga = keluarga.id and keluarga.id_kelurahan = #{id}")
 	List<PendudukModel> selectPendudukIdKec(int id);
 }
