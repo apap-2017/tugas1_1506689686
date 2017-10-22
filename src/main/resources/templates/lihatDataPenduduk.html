@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"></link>
+        <title>Lihat data penduduk</title>
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">SI Kependudukan</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+					<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/student/viewall">Cari Data</a>
+					</li>
+				</ul>
+							
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2"
+					type="text"
+					placeholder="Search"
+					aria-label="Search" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					Search
+					</button>
+				</form>
+			</div>
+	</nav>
+	<div th:if="${isWafat==true}">
+		<h2 th:text="'Penduduk dengan NIK ' + ${penduduk.nik} + ' telah meninggal!'"></h2>
+	</div>
+	<hr/>
+
+    	<h1 th:text="'Lihat data penduduk - ' + ${penduduk.nik}"></h1>
+    	<hr/>
+       <div>
+       	<table>
+       		<tr>
+       			<th></th>
+       		</tr>
+       		<tr>
+       			<td><label for="NIK">NIK </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.nik}" /></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Nama">Nama </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.nama}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="TTL">Tempat, Tanggal Lahir </label></td>
+       			<td><h5 th:text="': ' +${penduduk.tempat_lahir} +', '+ ${penduduk.tanggal_lahir}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Alamat">Alamat </label></td>
+       			<td><h5 th:text="': ' +${keluarga.alamat}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="rt">RT </label></td>
+       			<td><h5 th:text="': ' +${keluarga.rt}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="rw">RW </label></td>
+       			<td><h5 th:text="': ' + ${keluarga.rw}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Kelurahan">Kelurahan / Desa </label></td>
+       			<td><h5 th:text="': ' + ${kelurahan.nama_kelurahan}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Kecamatan">Kecamatan </label></td>
+       			<td><h5 th:text="': ' + ${kecamatan.nama_kecamatan}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Kota">Kota </label></td>
+       			<td><h5 th:text="': ' + ${kota.nama_kota}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="golongan_darah">Golongan Darah </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.golongan_darah}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="Agama">Agama </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.agama}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="status_perkawinan">Status Perkawinan </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.status_perkawinan}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="pekerjaan">Pekerjaan </label></td>
+       			<td><h5 th:text="': ' + ${penduduk.pekerjaan}"/></td>
+       		</tr>
+       		<tr>
+       			<td><label for="is_wni">Kewarganegaraan </label></td>
+       			<td><h5 th:text="${penduduk.is_wni} == 1 ? ': WNI' : ': WNA'" /></td>
+       		</tr>
+       		<tr>
+       			<td><label for="is_wafat">Status Kematian </label></td>
+       			<td><h5 th:text="${penduduk.is_wafat} == 1 ? ': Wafat' : ': Hidup'" /></td>
+       		</tr>
+       	</table>
+       	
+       	<form method="POST" th:action="'/penduduk?nik=' + ${penduduk.nik}">
+       		<input type="hidden" th:value="${penduduk.id_keluarga}" name="id_keluarga" />
+       		<button type="submit" class="btn btn-danger">Nonaktifkan</button>
+       	</form>
+       </div>
+       
+    </body>
+</html>

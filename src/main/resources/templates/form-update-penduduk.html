@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+	  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"></link>
+	  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="../js/datatables.min.css"></link>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../js/datatables.css"></link>
+			
+		<script>
+			$(document).ready( function () {
+	    		$('#table_id').DataTable();
+			} );
+		</script>
+		<script type="text/javascript" charset="utf8" src="../js/datatables.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="../js/datatables.js"></script>
+       <title>Update data keluarga</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">SI Kependudukan</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+					<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/student/viewall">Cari Data</a>
+					</li>
+				</ul>
+							
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2"
+					type="text"
+					placeholder="Search"
+					aria-label="Search" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					Search
+					</button>
+				</form>
+			</div>
+	</nav>
+	<div th:if="${isChange==true}">
+		<h2 th:text="'Penduduk dengan NIK ' + ${penduduk.nik} + ' telah diupdate!'"></h2>
+	</div>
+	<hr/>
+	
+	<h1 class="page-header">Mengubah Penduduk</h1>
+
+	<form th:object="${penduduk}" th:action="'/penduduk/ubah/' + ${penduduk.nik}" method="post">
+		<div>
+			<table>
+				<tr>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>
+						<input type="hidden" th:field="*{id}" th:value="${penduduk.id}" />
+					</td>
+				</tr>
+				<tr>
+					<td><label for="nama">Nama</label></td>
+					<td><input type="text" name="nama" th:field="*{nama}" th:value="${penduduk.nama}"/></td>
+				</tr>
+				<tr>
+					<td><label for="tempat_lahir">Tempat Lahir</label></td>
+					<td><input type="text" name="tempat_lahir" th:field="*{tempat_lahir}" th:value="${penduduk.tempat_lahir}"/></td>
+				</tr>
+				<tr>
+					<td><label for="tanggal_lahir">Tanggal Lahir</label></td>
+					<td><input type="date" name="tanggal_lahir" th:field="*{tanggal_lahir}" th:value="${penduduk.tanggal_lahir}"/></td>
+				</tr>
+				<tr>
+					<td><label for="jenis_kelamin">Jenis Kelamin</label></td>
+					<td>
+						<select name="jenis_kelamin">
+							<option value="0"> laki-laki</option>
+							<option value="1"> Perempuan</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="is_wni">Kewarganegaraan</label></td>
+					<td>
+						<select name="is_wni">
+							<option value="1">WNI</option>
+							<option value="0">WNA</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="id_keluarga">ID Keluarga</label></td>
+					<td><input type="text" name="id_keluarga" th:field="*{id_keluarga}" th:value="${penduduk.id_keluarga}"/></td>
+				</tr>
+				<tr>
+					<td><label for="agama">Agama</label></td>
+					<td><input type="text" name="agama" th:field="*{agama}" th:value="${penduduk.agama}"/></td>
+				</tr>
+				<tr>
+					<td><label for="pekerjaan">Pekerjaan</label></td>
+					<td><input type="text" name="pekerjaan" th:field="*{pekerjaan}" th:value="${penduduk.pekerjaan}"/></td>
+				</tr>
+				<tr>
+					<td><label for="status_perkawinan">Status Perkawinan</label></td>
+					<td><input type="text" name="status_perkawinan" th:field="*{status_perkawinan}" th:value="${penduduk.status_perkawinan}"/></td>
+				</tr>
+				<tr>
+					<td><label for="status_dalam_keluarga">Status Dalam Keluarga</label></td>
+					<td><input type="text" name="status_dalam_keluarga" th:field="*{status_dalam_keluarga}" th:value="${penduduk.status_dalam_keluarga}"/></td>
+				</tr>
+				<tr>
+					<td><label for="golongan_darah">Golongan Darah</label></td>
+					<td><input type="text" name="golongan_darah" th:field="*{golongan_darah}" th:value="${penduduk.golongan_darah}"/></td>
+				</tr>
+				<tr>
+					<td><label for="is_wafat">Status Kematian</label></td>
+					<td>
+						<select name="is_wafat" th:field="*{is_wafat}" th:value="${penduduk.is_wafat}">
+							<option value="0">Hidup</option>
+							<option value="1">Mati</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div>
+				<button type="submit" name="action" value="save">Save</button>
+			</div>
+		</div>
+	</form>
+
+</body>
+
+</html>
